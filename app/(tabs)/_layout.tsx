@@ -16,6 +16,22 @@ export default function TabsLayout() {
           headerTitle: "Guilherme Hentges",
         }}
       />
+      <Tabs.Screen
+        name="about"
+        options={{
+          title: "Sobre",
+          tabBarIcon: ({ color }) => <User size={24} color={color} />,
+          headerTitle: "Sobre Mim",
+        }}
+      />
+      <Tabs.Screen
+        name="academic"
+        options={{
+          title: "Acadêmico",
+          tabBarIcon: ({ color }) => <Code size={24} color={color} />,
+          headerTitle: "Experiência Acadêmica",
+        }}
+      />
     </Tabs>
   )
 }

@@ -14,7 +14,7 @@ export default function HomeScreen() {
 
   const handleOpenCV = async () => {
     try {
-      const asset = Asset.fromModule(require("../../assets/images/CurrículoGTH.pdf"))
+      const asset = Asset.fromModule(require("../../assets/images/CurriculoGTH.pdf"))
       await asset.downloadAsync()
 
       await Linking.openURL(asset.localUri || "")
