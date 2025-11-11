@@ -9,13 +9,9 @@ export default function AboutScreen() {
     { name: "React", category: "Framework" },
     { name: "Next.js", category: "Framework" },
     { name: "Node.js", category: "Runtime" },
-    { name: "Python", category: "Linguagem" },
     { name: "HTML", category: "Markup" },
     { name: "CSS", category: "Styling" },
-    { name: "Tailwind CSS", category: "Styling" },
-    { name: "Docker", category: "DevOps" },
     { name: "Git", category: "Versionamento" },
-    { name: "SQL", category: "Banco de Dados" },
     { name: "Expo Router", category: "Navegação" },
     { name: "Lucide Icons", category: "UI" },
   ]

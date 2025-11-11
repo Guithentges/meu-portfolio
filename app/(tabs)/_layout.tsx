@@ -32,6 +32,14 @@ export default function TabsLayout() {
           headerTitle: "Experiência Acadêmica",
         }}
       />
+      <Tabs.Screen
+        name="professional"
+        options={{
+          title: "Profissional",
+          tabBarIcon: ({ color }) => <Briefcase size={24} color={color} />,
+          headerTitle: "Experiência Profissional",
+        }}
+      />
     </Tabs>
   )
 }
