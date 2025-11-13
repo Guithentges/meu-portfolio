@@ -40,6 +40,14 @@ export default function TabsLayout() {
           headerTitle: "Experiência Profissional",
         }}
       />
+      <Tabs.Screen
+        name="projects"
+        options={{
+          title: "Projetos",
+          tabBarIcon: ({ color }) => <FolderOpen size={24} color={color} />,
+          headerTitle: "Meus Projetos",
+        }}
+      />
     </Tabs>
   )
 }
