@@ -11,11 +11,18 @@ export default function AcademicScreen() {
       highlights: ["Programação", "Estruturas de Dados", "Banco de Dados", "Engenharia de Software"],
     },
     {
-      title: "Certificação em Web Design",
-      institution: "Plataforma Online",
-      period: "2023",
-      description: "Certificação em design responsivo e UX/UI para aplicações web.",
-      highlights: ["UI/UX", "Figma", "Design Responsivo", "Prototipagem"],
+      title: "Certificado de Inglês Avançado",
+      institution: "Newbold College - ING",
+      period: "2017",
+      description: "Certificação em Inglês Avançado com ênfase em comunicação e compreensão.",
+      highlights: ["Inglês Avançado", "Comunicação Eficaz"],
+    },
+    {
+      title: "Certificado de Desenvolvedor Web Full Stack",
+      institution: "Rocketseat",
+      period: "2025",
+      description: "Curso de desenvolvimento web full stack com foco em tecnologias modernas.",
+      highlights: ["JavaScript", "React", "Node.js", "Banco de Dados", "APIs REST", "Docker", "HTML", "CSS", "TypeScript", "Git" , "GitHub"],
     },
   ]
 
