@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { View, Text, TouchableOpacity, ScrollView } from "react-native"
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from "react-native"
 import { RotateCcw } from "lucide-react-native"
 
 const WORDS = [
@@ -100,7 +100,6 @@ export default function HangmanGame() {
   const [gameOver, setGameOver] = useState(false)
   const [won, setWon] = useState(false)
 
-  // Initialize game
   useEffect(() => {
     resetGame()
   }, [])
@@ -125,18 +124,13 @@ export default function HangmanGame() {
     if (!word.includes(letter)) {
       const newWrongGuesses = wrongGuesses + 1
       setWrongGuesses(newWrongGuesses)
-
       if (newWrongGuesses >= HANGMAN_STAGES.length - 1) {
         setGameOver(true)
       }
     }
 
-    // Check if won
-    const wordLetters = word.split("")
-    const allGuessed = wordLetters.every((letter) => newGuessedLetters.includes(letter))
-    if (allGuessed) {
-      setWon(true)
-    }
+    const allGuessed = word.split("").every((l) => newGuessedLetters.includes(l))
+    if (allGuessed) setWon(true)
   }
 
   const displayWord = word
@@ -147,41 +141,42 @@ export default function HangmanGame() {
   const remainingGuesses = HANGMAN_STAGES.length - 1 - wrongGuesses
 
   return (
-    <View className="bg-slate-800 rounded-lg overflow-hidden border border-cyan-500">
-      {/* Hangman Drawing */}
-      <View className="bg-slate-900 p-4 items-center">
-        <Text className="font-mono text-gray-300 text-xs leading-tight">{HANGMAN_STAGES[wrongGuesses]}</Text>
+    <View style={styles.container}>
+      <View style={styles.hangmanBox}>
+        <Text style={styles.hangmanText}>{HANGMAN_STAGES[wrongGuesses]}</Text>
       </View>
 
-      {/* Game Info */}
-      <View className="bg-slate-800 px-4 py-4 border-b border-cyan-500">
-        <View className="flex-row justify-between items-center mb-3">
-          <Text className="text-cyan-400 font-semibold">Tentativas restantes: {remainingGuesses}</Text>
-          <Text className="text-gray-300 text-sm">Erros: {wrongGuesses}/6</Text>
+      <View style={styles.statusBox}>
+        <View style={styles.statusRow}>
+          <Text style={styles.remainingText}>Tentativas restantes: {remainingGuesses}</Text>
+          <Text style={styles.wrongText}>Erros: {wrongGuesses}/6</Text>
         </View>
       </View>
 
-      {/* Word Display */}
-      <View className="bg-slate-800 px-4 py-6 items-center border-b border-cyan-500">
-        <Text className="text-white text-4xl font-bold tracking-widest">{displayWord}</Text>
+      <View style={styles.wordBox}>
+        <Text style={styles.wordText}>{displayWord}</Text>
       </View>
 
-      {/* Guessed Letters */}
-      <View className="bg-slate-800 px-4 py-4 border-b border-cyan-500">
-        <Text className="text-gray-400 text-xs mb-2">Letras usadas:</Text>
-        <View className="flex-row flex-wrap gap-2">
+      <View style={styles.usedLettersBox}>
+        <Text style={styles.usedLettersLabel}>Letras usadas:</Text>
+        <View style={styles.usedLettersContainer}>
           {guessedLetters.map((letter) => (
-            <View key={letter} className={`px-2 py-1 rounded ${word.includes(letter) ? "bg-green-600" : "bg-red-600"}`}>
-              <Text className="text-white font-semibold text-xs">{letter}</Text>
+            <View
+              key={letter}
+              style={[
+                styles.usedLetter,
+                word.includes(letter) ? styles.correctLetter : styles.wrongLetter,
+              ]}
+            >
+              <Text style={styles.usedLetterText}>{letter}</Text>
             </View>
           ))}
         </View>
       </View>
 
-      {/* Alphabet Buttons */}
-      <View className="bg-slate-800 px-4 py-4">
+      <View style={styles.keyboardBox}>
         <ScrollView scrollEnabled={false}>
-          <View className="flex-row flex-wrap gap-2 justify-center">
+          <View style={styles.keyboardRow}>
             {alphabet.map((letter) => {
               const isGuessed = guessedLetters.includes(letter)
               const isCorrect = word.includes(letter)
@@ -191,11 +186,19 @@ export default function HangmanGame() {
                   key={letter}
                   onPress={() => handleGuess(letter)}
                   disabled={isGuessed || gameOver || won}
-                  className={`w-10 h-10 rounded items-center justify-center ${
-                    isGuessed ? (isCorrect ? "bg-green-600" : "bg-red-600") : "bg-cyan-500"
-                  } ${(isGuessed || gameOver || won) && "opacity-50"}`}
+                  style={[
+                    styles.keyButton,
+                    isGuessed
+                      ? isCorrect
+                        ? styles.keyCorrect
+                        : styles.keyWrong
+                      : styles.keyDefault,
+                    (isGuessed || gameOver || won) && styles.keyDisabled,
+                  ]}
                 >
-                  <Text className={`font-bold ${isGuessed ? "text-white" : "text-slate-900"}`}>{letter}</Text>
+                  <Text style={[styles.keyText, isGuessed ? styles.keyTextWhite : styles.keyTextDark]}>
+                    {letter}
+                  </Text>
                 </TouchableOpacity>
               )
             })}
@@ -203,30 +206,191 @@ export default function HangmanGame() {
         </ScrollView>
       </View>
 
-      {/* Game Over / Won Screen */}
       {(gameOver || won) && (
-        <View className="bg-slate-800 px-4 py-6 border-t border-cyan-500 items-center">
+        <View style={styles.resultBox}>
           {won ? (
             <>
-              <Text className="text-green-400 text-2xl font-bold mb-2">Parabéns! 🎉</Text>
-              <Text className="text-white text-lg mb-4">Você adivinhou a palavra: {word}</Text>
+              <Text style={styles.winTitle}>Parabéns! 🎉</Text>
+              <Text style={styles.finalWord}>Você adivinhou a palavra: {word}</Text>
             </>
           ) : (
             <>
-              <Text className="text-red-400 text-2xl font-bold mb-2">Game Over! 💀</Text>
-              <Text className="text-white text-lg mb-4">A palavra era: {word}</Text>
+              <Text style={styles.loseTitle}>Game Over! 💀</Text>
+              <Text style={styles.finalWord}>A palavra era: {word}</Text>
             </>
           )}
 
-          <TouchableOpacity
-            onPress={resetGame}
-            className="bg-cyan-500 rounded-lg px-6 py-3 flex-row items-center gap-2"
-          >
+          <TouchableOpacity onPress={resetGame} style={styles.resetButton}>
             <RotateCcw size={20} color="#0f0f0f" />
-            <Text className="text-slate-900 font-bold">Jogar Novamente</Text>
+            <Text style={styles.resetButtonText}>Jogar Novamente</Text>
           </TouchableOpacity>
         </View>
       )}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#1e293b",
+    borderRadius: 8,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "#06b6d4",
+  },
+  hangmanBox: {
+    backgroundColor: "#0f172a",
+    padding: 16,
+    alignItems: "center",
+  },
+  hangmanText: {
+    fontFamily: "monospace",
+    color: "#d1d5db",
+    fontSize: 10,
+    lineHeight: 14,
+  },
+  statusBox: {
+    backgroundColor: "#1e293b",
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderColor: "#06b6d4",
+  },
+  statusRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  remainingText: {
+    color: "#06b6d4",
+    fontWeight: "600",
+  },
+  wrongText: {
+    color: "#d1d5db",
+    fontSize: 14,
+  },
+  wordBox: {
+    backgroundColor: "#1e293b",
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderColor: "#06b6d4",
+  },
+  wordText: {
+    color: "#ffffff",
+    fontSize: 32,
+    fontWeight: "700",
+    letterSpacing: 8,
+  },
+  usedLettersBox: {
+    backgroundColor: "#1e293b",
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderColor: "#06b6d4",
+  },
+  usedLettersLabel: {
+    color: "#94a3b8",
+    fontSize: 12,
+    marginBottom: 8,
+  },
+  usedLettersContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+  },
+  usedLetter: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  usedLetterText: {
+    color: "#ffffff",
+    fontWeight: "600",
+    fontSize: 12,
+  },
+  correctLetter: {
+    backgroundColor: "#16a34a",
+  },
+  wrongLetter: {
+    backgroundColor: "#dc2626",
+  },
+  keyboardBox: {
+    backgroundColor: "#1e293b",
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  keyboardRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8,
+    justifyContent: "center",
+  },
+  keyButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  keyDefault: {
+    backgroundColor: "#06b6d4",
+  },
+  keyCorrect: {
+    backgroundColor: "#16a34a",
+  },
+  keyWrong: {
+    backgroundColor: "#dc2626",
+  },
+  keyDisabled: {
+    opacity: 0.5,
+  },
+  keyText: {
+    fontWeight: "700",
+  },
+  keyTextWhite: {
+    color: "#ffffff",
+  },
+  keyTextDark: {
+    color: "#0f172a",
+  },
+  resultBox: {
+    backgroundColor: "#1e293b",
+    paddingHorizontal: 16,
+    paddingVertical: 24,
+    borderTopWidth: 1,
+    borderColor: "#06b6d4",
+    alignItems: "center",
+  },
+  winTitle: {
+    color: "#22c55e",
+    fontSize: 24,
+    fontWeight: "700",
+    marginBottom: 8,
+  },
+  loseTitle: {
+    color: "#ef4444",
+    fontSize: 24,
+    fontWeight: "700",
+    marginBottom: 8,
+  },
+  finalWord: {
+    color: "#ffffff",
+    fontSize: 18,
+    marginBottom: 16,
+  },
+  resetButton: {
+    backgroundColor: "#06b6d4",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  resetButtonText: {
+    color: "#0f172a",
+    fontWeight: "700",
+  },
+})

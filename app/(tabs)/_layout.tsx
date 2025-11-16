@@ -48,6 +48,14 @@ export default function TabsLayout() {
           headerTitle: "Meus Projetos",
         }}
       />
+      <Tabs.Screen
+        name="game"
+        options={{
+          title: "Jogo",
+          tabBarIcon: ({ color }) => <Gamepad2 size={24} color={color} />,
+          headerTitle: "Jogo da forca",
+        }}
+      />
     </Tabs>
   )
 }
