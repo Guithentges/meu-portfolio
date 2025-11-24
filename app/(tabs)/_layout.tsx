@@ -21,7 +21,7 @@ export default function TabsLayout() {
         options={{
           title: "Sobre",
           tabBarIcon: ({ color }) => <User size={24} color={color} />,
-          headerTitle: "Sobre Mim",
+          headerTitle: "Sobre o App",
         }}
       />
       <Tabs.Screen

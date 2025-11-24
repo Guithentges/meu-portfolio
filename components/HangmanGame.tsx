@@ -210,12 +210,12 @@ export default function HangmanGame() {
         <View style={styles.resultBox}>
           {won ? (
             <>
-              <Text style={styles.winTitle}>Parabéns! 🎉</Text>
+              <Text style={styles.winTitle}>Parabéns!</Text>
               <Text style={styles.finalWord}>Você adivinhou a palavra: {word}</Text>
             </>
           ) : (
             <>
-              <Text style={styles.loseTitle}>Game Over! 💀</Text>
+              <Text style={styles.loseTitle}>Game Over!</Text>
               <Text style={styles.finalWord}>A palavra era: {word}</Text>
             </>
           )}

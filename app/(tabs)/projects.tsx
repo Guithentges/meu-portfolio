@@ -4,31 +4,31 @@ import { ExternalLink } from "lucide-react-native"
 export default function ProjectsScreen() {
   const projects = [
     {
-      title: "Jogo da Forca",
-      description: "Jogo interativo desenvolvido com React e Tailwind CSS.",
-      technologies: ["React", "JavaScript", "Tailwind CSS"],
-      link: "https://github.com",
+      title: "Aura - Loja virtual de roupas",
+      description: "Plataforma de e-commerce para venda de roupas com sistema de pagamento integrado.",
+      technologies: ["Python", "Django", "HTML", "CSS", "SQLite"],
+      link: "https://github.com/Guithentges/Aura",
     },
     {
-      title: "Aura - Plataforma de Streaming",
-      description: "Plataforma de streaming de conteúdo com autenticação e recomendações.",
-      technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
-      link: "https://github.com",
+      title: "Lista de Compras",
+      description: "Site online para gerenciar listas de compras.",
+      technologies: ["Javascript", "HTML", "CSS"],
+      link: "https://github.com/Guithentges/Lista-de-compras",
     },
     {
-      title: "App de Tarefas",
-      description: "Aplicativo mobile para gerenciamento de tarefas com sincronização em tempo real.",
-      technologies: ["React Native", "Firebase", "Expo"],
-      link: "https://github.com",
+      title: "Restaurante DGK",
+      description: "Sistema de gerenciamento para restaurante interativo.",
+      technologies: ["Next.js", "TypeScript", "Javascript", "CSS", "HTML", "Back4app"],
+      link: "https://github.com/Guithentges/dgkrestaurante",
     },
     {
-      title: "Dashboard Analítico",
-      description: "Dashboard com gráficos e análises de dados em tempo real.",
-      technologies: ["Next.js", "TypeScript", "Recharts", "Tailwind CSS"],
-      link: "https://github.com",
+      title: "Sorteador de numeros",
+      description: "Site responsivo para sortear números aleatórios dentro de um intervalo definido pelo usuário.",
+      technologies: ["Javascript", "HTML", "CSS"],
+      link: "https://github.com/Guithentges/sorteador",
     },
   ]
-
+  
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Meus Projetos</Text>
